@@ -1,7 +1,7 @@
 import marimo
 
 __generated_with = "0.23.1"
-app = marimo.App(width="medium", auto_download=["ipynb"])
+app = marimo.App(width="medium", auto_download=["ipynb", "html"])
 
 with app.setup:
     import polars
