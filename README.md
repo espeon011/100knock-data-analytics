@@ -7,5 +7,5 @@
 朝練用のノートを起動する場合は
 
 ```bash
-uv run marimo edit --headless --host 0.0.0.0 --no-token notebooks/chp00.py --watch
+uv run marimo edit --headless --host 0.0.0.0 --no-token --watch notebooks/chp00.py
 ```
