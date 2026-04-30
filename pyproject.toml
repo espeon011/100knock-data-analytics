@@ -19,11 +19,6 @@ dev = [
 ]
 
 [tool.taskipy.tasks]
-copy-html = """
-rm -rf site/marimo &&
-cp -r notebooks/__marimo__ site/marimo &&
-find site/marimo -type f ! -name "*.html" -delete
-"""
 export-html = """
 rm -rf site/marimo &&
 find notebooks -name "*.py" -type f -print0 |
@@ -37,7 +32,10 @@ while IFS= read -r -d '' f; do
 done
 """
 build-book = """
-JEKYLL_ENV=production jekyll build --source site --destination site-public
+JEKYLL_ENV=production jekyll build --source site --destination site-public --config site/config-public.yml
+"""
+build-book-dev = """
+JEKYLL_ENV=development jekyll build --source site --destination site-develop --config site/config-develop.yml
 """
 
 [tool.taskipy.settings]
