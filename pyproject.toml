@@ -12,3 +12,33 @@ dependencies = [
     "numpy>=2.4.4",
     "polars[excel]>=1.39.3",
 ]
+
+[dependency-groups]
+dev = [
+    "taskipy>=1.14.1",
+]
+
+[tool.taskipy.tasks]
+copy-html = """
+rm -rf site/marimo &&
+cp -r notebooks/__marimo__ site/marimo &&
+find site/marimo -type f ! -name "*.html" -delete
+"""
+export-html = """
+rm -rf site/marimo &&
+find notebooks -name "*.py" -type f -print0 |
+while IFS= read -r -d '' f; do
+  rel="${f#notebooks/}"     # notebooks/ を削除して相対パス化
+  base="${rel%.py}"         # .py を削除
+  out="site/marimo/${base}.html"   # site 配下に同構造で出力
+
+  mkdir -p "$(dirname "$out")"
+  marimo export html "$f" -o "$out"
+done
+"""
+build-book = """
+JEKYLL_ENV=production jekyll build --source site --destination site-public
+"""
+
+[tool.taskipy.settings]
+cwd = "."

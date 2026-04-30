@@ -26,6 +26,7 @@
           pkgs.pyrefly
           pkgs.ruff
           pkgs.ty
+          pkgs.jekyll
         ];
 
         # numpy 依存ライブラリへの PATH

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{ page.title }}</title>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: flex;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    nav {
+      width: 250px;
+      background: #eee;
+      padding: 1em;
+      overflow-y: auto;
+    }
+
+    main {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    main:has(iframe) {
+      display: flex;
+    }
+
+    iframe {
+      flex: 1;
+      border: none;
+    }
+
+    a {
+      text-decoration: none;
+      display: block;
+      padding: 4px 0;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <h3>Contents</h3>
+  <ul>
+    {% assign pages = site.pages | sort: "order" %}
+    {% for p in pages %}
+      {% if p.layout == "book" %}
+        <li>
+          <a href="{{ p.url }}"
+             {% if p.url == page.url %}style="font-weight:bold"{% endif %}>
+            {{ p.title }}
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</nav>
+
+<main>
+  {{ content }}
+</main>
+
+</body>
+</html>
